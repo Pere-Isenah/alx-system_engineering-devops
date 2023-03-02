@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+#script that accepts one argument and pass it to a regular expression matching "School"
+puts ARGV[0].scan(/School/).join

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+#conect to server with private key
+Host my-server
+    HostName 52.90.15.125
+    User ubuntu
+    IdentityFile ~/.ssh/school
+    PasswordAuthentication no

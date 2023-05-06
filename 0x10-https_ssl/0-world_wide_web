@@ -1,32 +1,18 @@
 #!/usr/bin/env bash
+# Script that will display information about subdomains
 
-get_subdomain_info() {
-    domain=$1
-    subdomain=$2
-
-    # If subdomain is not provided, use default subdomains
-    if [[ -z "$subdomain" ]]; then
-        subdomains=("www" "lb-01" "web-01" "web-02")
-    else
-        subdomains=("$subdomain")
-    fi
-
-    # Loop through each subdomain and get its DNS information
-    for sub in "${subdomains[@]}"; do
-        dns_info=$(dig $sub.$domain | awk '/ANSWER SECTION/{getline; print $1, $4}')
-        record_type=$(echo $dns_info | awk '{print $1}')
-        destination=$(echo $dns_info | awk '{print $2}')
-
-        # Print the subdomain's DNS information
-        echo "The subdomain $sub is a $record_type record and points to $destination"
-    done
+DNSInfo () {
+    ANSWER=$(dig $2 | grep -A1 'ANSWER SECTION:' | awk 'NR==2 {print $0}')
+    echo "The subdomain $1 is a $(echo $ANSWER | awk '{print $4}') record and points to $(echo $ANSWER | awk '{print $5}')"
 }
 
-# Check if domain argument is provided
-if [[ -z "$1" ]]; then
-    echo "Error: domain argument is required"
-    exit 1
+if [[ $# == 1 ]]; then
+    subdomains=('www' 'lb-01' 'web-01' 'web-02')
+    for i in "${subdomains[@]}"; do
+	CONCAT="$i.$1"
+	DNSInfo $i $CONCAT
+    done
+else
+    CONCAT="$2.$1"
+    DNSInfo $2 $CONCAT
 fi
-
-# Call get_subdomain_info function with provided arguments
-get_subdomain_info "$1" "$2"

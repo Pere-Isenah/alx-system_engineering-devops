@@ -1,0 +1,1 @@
+a link to a blog post explaining what happens when you type https://www.google.com in your browser 

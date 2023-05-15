@@ -1,0 +1,1 @@
+setting up firewall to allow port 22,80 and 443

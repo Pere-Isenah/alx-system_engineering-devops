@@ -17,9 +17,8 @@ def top_ten(subreddit):
     """
 
     url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
-    headers = {"User-Agent": "Custom User Agent"}  # Add your custom User-Agent here
 
-    response = requests.get(url, headers=headers)
+    response = requests.get(url)
 
     if response.status_code == 200:
         data = response.json()

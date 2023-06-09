@@ -17,7 +17,6 @@ def number_of_subscribers(subreddit):
     """
 
     url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    # headers = {"User-Agent": "Custom User Agent"}  # Add your custom User-Agent here
 
     response = requests.get(url)
 
